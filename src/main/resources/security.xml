@@ -6,16 +6,53 @@
         xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
                            http://www.springframework.org/schema/security
-                           http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+                           http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 
-    <http use-expressions="true">
-        <intercept-url pattern="/**" access="hasRole('BURGER')" />
-        <form-login login-page="/login" login-processing-url="" />
-        <logout />
+    <!-- static elements -->
+    <http pattern="/clientapps/**" security="none"/>
+    <http pattern="/content/**" security="none"/>
+    <http pattern="/scripts/**" security="none"/>
+
+    <!-- bare rest endpoints -->
+    <!--http pattern="/api/**"
+          use-expressions="true"
+          entry-point-ref="apiEntryPoint">
+
+        !-- config --
+        <request-cache ref="requestCache"/>
+        <session-management session-fixation-protection="newSession"/>
+
+        <custom-filter ref="angularLoginFilter" position="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="logoutFilter" position="LOGOUT_FILTER"/>
+
+        <intercept-url pattern="/api/security/**" access="permitAll()" />
+        <intercept-url pattern="/api/**" access="isAuthenticated()" />
+
+    </http-->
+
+    <http pattern="/**"
+          use-expressions="true"
+          entry-point-ref="pageEntryPoint">
+
+        <intercept-url pattern="/**" access="permitAll()" />
+
+        <!-- config -->
+        <!--request-cache ref="requestCache"/>
+
+        <session-management session-fixation-protection="newSession"/>
+
+        <custom-filter ref="angularLoginFilter" position="FORM_LOGIN_FILTER"/>
+        <custom-filter ref="logoutFilter" position="LOGOUT_FILTER"/>
+
+        !-- access config --
+        <intercept-url pattern="/jsp/**" access="denyAll()"/>
+
+        <intercept-url pattern="/login/**" access="permitAll()"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/-->
     </http>
 
     <authentication-manager alias="authenticationManager">
-        <authentication-provider ref="CustomAuthenticationProvider" />
+        <authentication-provider ref="springSecurityAuthenticationProvider"/>
     </authentication-manager>
 
 </beans:beans>

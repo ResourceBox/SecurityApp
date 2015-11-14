@@ -1,0 +1,8 @@
+ru\resource\app\configuration\SecurityConfiguration.class
+ru\resource\app\domain\services\UsefulService.class
+ru\resource\app\configuration\RootConfiguration.class
+ru\resource\app\configuration\WebConfiguration.class
+ru\resource\app\configuration\AppInitializer.class
+ru\resource\app\domain\services\UsefulServiceImpl.class
+ru\resource\app\controllers\JspController.class
+ru\resource\app\controllers\ApiController.class
